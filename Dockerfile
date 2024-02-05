@@ -19,14 +19,13 @@ RUN apt-get update && apt-get install -y \
     libncursesw5-dev \
     xz-utils \
     tk-dev \
-    liblzma-dev \
-    python-openssl
+    liblzma-dev
 
 # Download and install Python 3.11
-WORKDIR /tmp
+RUN apt-get install -y git
 RUN wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz
 RUN tar -xvf Python-3.11.0.tgz
-WORKDIR /tmp/Python-3.11.0
+WORKDIR /Python-3.11.0
 RUN ./configure --enable-optimizations
 RUN make altinstall
 
