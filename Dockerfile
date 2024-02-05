@@ -3,16 +3,36 @@ FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install Python 3.11
-RUN apt-get update && apt-get install -y software-properties-common
-RUN add-apt-repository -y ppa:deadsnakes/ppa
-RUN apt-get update && apt-get install -y python3.11 python3-pip
-
 # Install necessary system dependencies
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     build-essential \
-    cmake \
-    libopenblas-dev
+    wget \
+    libffi-dev \
+    libgdbm-dev \
+    libc6-dev \
+    libssl-dev \
+    zlib1g-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    libncurses5-dev \
+    libncursesw5-dev \
+    xz-utils \
+    tk-dev \
+    liblzma-dev \
+    python-openssl \
+    git
+
+# Download and install Python 3.11
+WORKDIR /tmp
+RUN wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz
+RUN tar -xvf Python-3.11.0.tgz
+WORKDIR /tmp/Python-3.11.0
+RUN ./configure --enable-optimizations
+RUN make altinstall
+
+# Install pip
+RUN apt-get install -y python3-pip
 
 # Install llama.cpp and MemGPT
 RUN pip install llama-cpp-python memgpt
