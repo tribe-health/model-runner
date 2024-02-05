@@ -1,8 +1,11 @@
 FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
 
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install Python 3.11
 RUN apt-get update && apt-get install -y software-properties-common
-RUN add-apt-repository ppa:deadsnakes/ppa
+RUN add-apt-repository -y ppa:deadsnakes/ppa
 RUN apt-get update && apt-get install -y python3.11 python3-pip
 
 # Install necessary system dependencies
