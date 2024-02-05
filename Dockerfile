@@ -20,8 +20,7 @@ RUN apt-get update && apt-get install -y \
     xz-utils \
     tk-dev \
     liblzma-dev \
-    python-openssl \
-    git
+    python-openssl
 
 # Download and install Python 3.11
 WORKDIR /tmp
